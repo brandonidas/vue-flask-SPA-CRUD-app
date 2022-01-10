@@ -48,7 +48,7 @@ def upload_file():
             images = request.files.getlist('myFile')
             print(images[0])
             for image in images:
-                image.save('/Users/brandontong/Documents/github/vue-flask-SPA-CRUD-app/server/uploads/' +'test.png' ) # must enable permissions
+                image.save('/Users/brandontong/Documents/github/vue-flask-SPA-CRUD-app/server/uploads/' + image.filename) # must enable permissions
 
     return jsonify(response_object)
 

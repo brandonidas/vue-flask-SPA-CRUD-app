@@ -1,0 +1,1 @@
+DISABLE CORS : https://medium.com/swlh/avoiding-cors-errors-on-localhost-in-2020-5a656ed8cefa

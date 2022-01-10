@@ -1,5 +1,7 @@
 <template>
   <div class='container'>
+          <img src="../../../server/uploads/res.png"
+    width="100" height="100">
     <div class='row'>
       <div class='col-sm-10'>
         <h1>Books</h1>
