@@ -1,8 +1,12 @@
 <template>
   <div class='container'>
-          <img src="../../../server/uploads/res.png"
-    width="100" height="100">
+    <div v-for='(image, index) in images' :key='index'>
+        <img v-bind:src="'/../server/uploads/' + image.name" width="100" height="100" />
+        <!-- <img src={{image}} width="100" height="100" /> -->
+
+    </div>
     <div class='row'>
+    <img src="../../../server/uploads/res.png" width="100" height="100" />
       <div class='col-sm-10'>
         <h1>Books</h1>
         <hr />
@@ -164,6 +168,7 @@ export default {
   data() {
     return {
       books: [],
+      images: [],
       selectedFiles: null,
       addBookForm: {
         title: '',
@@ -196,6 +201,19 @@ export default {
     onFileChanged(event) {
       this.selectedFiles = event.target.files; // strange array destructuring
       console.log(this.selectedFiles);
+    },
+    getImages() {
+      const path = 'http://127.0.0.1:5000/images';
+      axios
+        .get(path)
+        .then((res) => {
+          this.images = res.data.images;
+          console.log(this.images);
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+        console.error(error);
+        });
     },
     getBooks() {
       const path = 'http://127.0.0.1:5000/books';
@@ -308,6 +326,8 @@ export default {
   },
   created() {
     this.getBooks();
+    this.getImages();
+    console.log('hi');
   },
 };
 </script>

@@ -3,6 +3,16 @@ from flask import Flask, json, jsonify, request
 from flask_cors import CORS
 
 # TODO replace with a real DB
+
+IMAGES = [
+    {
+        'name' : 'res.png'
+    },
+    {
+        'name' : 'test.png'
+    }
+]
+
 BOOKS = [
     {
         'id': uuid.uuid4().hex,
@@ -40,6 +50,15 @@ app.config.from_object(__name__)
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
 
+@app.route('/images', methods=['GET'])
+def images():
+    print("in images")
+    if request.method == 'GET':
+        response_object = {'status': 'success'}
+        response_object['images'] = IMAGES
+        return response_object
+
+
 @app.route('/file-upload', methods=['POST'])
 def upload_file():
     response_object = {'status': 'success'}
@@ -48,6 +67,11 @@ def upload_file():
             images = request.files.getlist('myFile')
             print(images[0])
             for image in images:
+                IMAGES.append(
+                    {
+                        'name' : image.filename
+                    }
+                )
                 image.save('/Users/brandontong/Documents/github/vue-flask-SPA-CRUD-app/server/uploads/' + image.filename) # must enable permissions
 
     return jsonify(response_object)
