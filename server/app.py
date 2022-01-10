@@ -1,5 +1,5 @@
 import uuid
-from flask import Flask, jsonify, request
+from flask import Flask, json, jsonify, request
 from flask_cors import CORS
 
 # TODO replace with a real DB
@@ -39,6 +39,18 @@ app.config.from_object(__name__)
 
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
+
+@app.route('/file-upload', methods=['POST'])
+def upload_file():
+    response_object = {'status': 'success'}
+    if request.method == 'POST':
+        if request.files:
+            images = request.files.getlist('myFile')
+            print(images[0])
+            for image in images:
+                image.save('/Users/brandontong/Documents/github/vue-flask-SPA-CRUD-app/server/uploads/' +'test.png' ) # must enable permissions
+
+    return jsonify(response_object)
 
 
 @app.route('/books', methods=['GET', 'POST'])
