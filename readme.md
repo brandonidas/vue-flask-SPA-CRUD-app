@@ -1,4 +1,4 @@
-NOTE: this is repo is continually under construction, even if the recruiters don't get back to me. I think this is a good portfolio thing to have.
+NOTE: this is repo is continually under construction, even if the recruiters don't get back to me. I think this is a good portfolio thing to have. Also, an image repository is a good platform to build many different things off of.
 
 STEPS:
 1. DISABLE CORS : https://medium.com/swlh/avoiding-cors-errors-on-localhost-in-2020-5a656ed8cefa
