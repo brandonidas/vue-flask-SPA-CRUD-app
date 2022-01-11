@@ -1,5 +1,5 @@
 import uuid
-from flask import Flask, json, jsonify, request
+from flask import Flask, json, jsonify, request, send_from_directory, abort
 from flask_cors import CORS
 
 # TODO replace with a real DB
@@ -46,9 +46,18 @@ DEBUG = True
 # instantiate the app
 app = Flask(__name__)
 app.config.from_object(__name__)
+# TODO figure out relative paths
+app.config["CLIENT_IMAGES"] = "/Users/brandontong/Documents/github/vue-flask-SPA-CRUD-app/server/uploads"
 
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
+
+@app.route("/get-image/<image_name>")
+def get_image(image_name):
+    try:
+        return send_from_directory(app.config["CLIENT_IMAGES"], filename=image_name, as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
 
 @app.route('/images', methods=['GET'])
 def images():

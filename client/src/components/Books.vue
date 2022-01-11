@@ -1,7 +1,8 @@
 <template>
   <div class='container'>
     <div v-for='(image, index) in images' :key='index'>
-        <img v-bind:src="'/../server/uploads/' + image.name" width="100" height="100" />
+        <!-- http://127.0.0.1:5000/get-image/test.png -->
+        <img v-bind:src="'http://127.0.0.1:5000/get-image/' + image.name" width="100" height="100" />
         <!-- <img src={{image}} width="100" height="100" /> -->
 
     </div>
