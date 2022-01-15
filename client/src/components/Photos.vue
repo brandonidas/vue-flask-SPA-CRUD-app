@@ -1,6 +1,10 @@
 <template>
   <div class='container'>
     <h1>Photos</h1>
+    <alert :message='message' v-if='showMessage'></alert>
+    <input type='file' @change='onFileChanged' />
+    <button @click='onUpload'>Upload!</button>
+        <br /><br />
     <div v-for='(image, index) in images' :key='index'>
         <!-- http://127.0.0.1:5000/get-image/test.png -->
         <!-- <img src={{image}} width="100" height="100" /> -->
@@ -32,10 +36,6 @@
         <br /><br />
         <br />
         <br />
-        <input type='file' @change='onFileChanged' />
-        <button @click='onUpload'>Upload!</button>
-        <br /><br />
-                <alert :message='message' v-if='showMessage'></alert>
         <!-- <button
           type='button'
           class='btn btn-success btn-sm'
@@ -213,7 +213,7 @@ export default {
       const formData = new FormData();
       formData.append('myFile', this.selectedFiles[0]);
       axios.post(domain, formData).then(() => {
-        this.message = 'uploade';
+        this.message = 'uploaded!';
         this.showMessage = true;
         this.getImages();
       });

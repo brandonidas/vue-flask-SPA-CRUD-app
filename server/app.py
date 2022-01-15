@@ -70,7 +70,7 @@ def images():
     if request.method == 'GET':
         print(IMAGES)
         response_object = {'status': 'success'}
-        response_object['images'] = IMAGES
+        response_object['images'] = list(reversed(IMAGES))
         return response_object
 
 
