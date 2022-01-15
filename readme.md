@@ -11,4 +11,5 @@ STEPS:
 CAVEAT: I have not yet tested this on a fresh install and thus there maybe needed packages or other set up. And as every developer knows, set up is the worst part.
 
 Citations
-https://pythonise.com/series/learning-flask/sending-files-with-flask
+Image uploads to flask https://pythonise.com/series/learning-flask/sending-files-with-flask
+The general structure of the application https://testdriven.io/blog/developing-a-single-page-app-with-flask-and-vuejs/
