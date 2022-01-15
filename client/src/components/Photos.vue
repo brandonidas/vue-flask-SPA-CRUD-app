@@ -1,18 +1,42 @@
 <template>
   <div class='container'>
+    <h1>Photos</h1>
     <div v-for='(image, index) in images' :key='index'>
         <!-- http://127.0.0.1:5000/get-image/test.png -->
-        <img v-bind:src="'http://127.0.0.1:5000/get-image/' + image.name" width="100" height="100" />
         <!-- <img src={{image}} width="100" height="100" /> -->
-
     </div>
+        <table class='table table-hover'>
+          <thead>
+            <tr>
+              <th scope='col'>Image</th>
+              <th scope='col'>Name</th>
+              <th scope='col'>User</th>
+              <th scope='col'>id</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for='(image, index) in images' :key='index'>
+              <td>
+                <img v-bind:src="'http://127.0.0.1:5000/get-image/' + image.name" width="200" height="200" />
+              </td>
+              <td>{{ image.name }}</td>
+              <td>{{ image.user }}</td>
+              <td>{{ image.id }}</td>
+            </tr>
+          </tbody>
+        </table>
     <div class='row'>
-    <img src="../../../server/uploads/res.png" width="100" height="100" />
+    <!-- <img src="../../../server/uploads/res.png" width="100" height="100" /> -->
       <div class='col-sm-10'>
-        <h1>Books</h1>
         <hr />
         <br /><br />
-        <alert :message='message' v-if='showMessage'></alert>
+        <br />
+        <br />
+        <input type='file' @change='onFileChanged' />
+        <button @click='onUpload'>Upload!</button>
+        <br /><br />
+                <alert :message='message' v-if='showMessage'></alert>
         <button
           type='button'
           class='btn btn-success btn-sm'
@@ -20,11 +44,6 @@
         >
           Add Book
         </button>
-        <br />
-        <br />
-        <input type='file' @change='onFileChanged' />
-        <button @click='onUpload'>Upload!</button>
-        <br /><br />
         <table class='table table-hover'>
           <thead>
             <tr>

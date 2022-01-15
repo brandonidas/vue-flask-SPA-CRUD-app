@@ -2,14 +2,17 @@ import uuid
 from flask import Flask, json, jsonify, request, send_from_directory, abort
 from flask_cors import CORS
 
-# TODO replace with a real DB
-
+# TODO replace with a real mySQL DB
 IMAGES = [
     {
-        'name' : 'res.png'
+        'id': uuid.uuid4().hex,
+        'name' : 'res.png',
+        'user' : 'brandonidas',
     },
     {
-        'name' : 'test.png'
+        'id': uuid.uuid4().hex,
+        'name' : 'test.png',
+        'user' : 'brandonidas',
     }
 ]
 
@@ -78,7 +81,9 @@ def upload_file():
             for image in images:
                 IMAGES.append(
                     {
-                        'name' : image.filename
+                        'name' : image.filename,
+                        'id': uuid.uuid4().hex,
+                        'user' : 'brandonidas'
                     }
                 )
                 image.save('/Users/brandontong/Documents/github/vue-flask-SPA-CRUD-app/server/uploads/' + image.filename) # must enable permissions

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Books from '../components/Books.vue';
+import Photos from '../components/Photos.vue';
 import Ping from '../components/Ping.vue';
 
 Vue.use(Router);
@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Books',
-      component: Books,
+      name: 'Photos',
+      component: Photos,
     },
     {
       path: '/ping',
