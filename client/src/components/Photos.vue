@@ -18,7 +18,7 @@
           <tbody>
             <tr v-for='(image, index) in images' :key='index'>
               <td>
-                <img v-bind:src="'http://127.0.0.1:5000/get-image/' + image.name" width="200" height="200" />
+                <img v-bind:src="'http://127.0.0.1:5000/get-image/' + image.name" width="100" height="100" />
               </td>
               <td>{{ image.name }}</td>
               <td>{{ image.user }}</td>
@@ -27,7 +27,6 @@
           </tbody>
         </table>
     <div class='row'>
-    <!-- <img src="../../../server/uploads/res.png" width="100" height="100" /> -->
       <div class='col-sm-10'>
         <hr />
         <br /><br />
@@ -37,7 +36,7 @@
         <button @click='onUpload'>Upload!</button>
         <br /><br />
                 <alert :message='message' v-if='showMessage'></alert>
-        <button
+        <!-- <button
           type='button'
           class='btn btn-success btn-sm'
           v-b-modal.book-modal
@@ -82,7 +81,7 @@
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
     </div>
     <b-modal
@@ -213,7 +212,11 @@ export default {
       const domain = 'http://127.0.0.1:5000/file-upload';
       const formData = new FormData();
       formData.append('myFile', this.selectedFiles[0]);
-      axios.post(domain, formData);
+      axios.post(domain, formData).then(() => {
+        this.message = 'uploade';
+        this.showMessage = true;
+        this.getImages();
+      });
 
       // TODO research binary vs form data
       // axios.post(domain, this.selectedFiles);

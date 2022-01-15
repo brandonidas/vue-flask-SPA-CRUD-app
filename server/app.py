@@ -1,6 +1,8 @@
 import uuid
-from flask import Flask, json, jsonify, request, send_from_directory, abort
+import sqlite3
+from flask import Flask, json, jsonify, request, send_from_directory, abort, g
 from flask_cors import CORS
+
 
 # TODO replace with a real mySQL DB
 IMAGES = [
@@ -66,6 +68,7 @@ def get_image(image_name):
 def images():
     print("in images")
     if request.method == 'GET':
+        print(IMAGES)
         response_object = {'status': 'success'}
         response_object['images'] = IMAGES
         return response_object
@@ -73,6 +76,7 @@ def images():
 
 @app.route('/file-upload', methods=['POST'])
 def upload_file():
+    print("in file upload")
     response_object = {'status': 'success'}
     if request.method == 'POST':
         if request.files:
