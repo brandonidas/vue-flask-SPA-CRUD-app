@@ -2,6 +2,7 @@ import uuid
 import sqlite3
 from flask import Flask, json, jsonify, request, send_from_directory, abort, g
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 from rng import *
 
 # TODO replace with a real mySQL DB
@@ -53,11 +54,25 @@ DEBUG = True
 # instantiate the app
 app = Flask(__name__)
 app.config.from_object(__name__)
-# TODO figure out relative paths
-app.config["CLIENT_IMAGES"] = "/Users/brandontong/Documents/github/vue-flask-SPA-CRUD-app/server/uploads"
+# TODO figure out relative paths, seems to work BUT MONITOR
+app.config["CLIENT_IMAGES"] = "./server/uploads"
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///product.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db=SQLAlchemy(app)
 
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
+
+class Product(db.Model):
+    id=db.Column(db.Integer,primary_key=True) # not sure if not HEX.???.
+    name=db.Column(db.String(200),nullable=False)
+    user=db.Column(db.String(200),nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self) :
+        return "{} is the name and {} is the price".format(self.name,self.price)
 
 @app.route("/get-image/<image_name>")
 def get_image(image_name):
