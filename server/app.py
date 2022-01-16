@@ -1,8 +1,8 @@
-
 import uuid
 import sqlite3
 from flask import Flask, json, jsonify, request, send_from_directory, abort, g
 from flask_cors import CORS
+from rng import *
 
 # TODO replace with a real mySQL DB
 IMAGES = [
@@ -23,6 +23,7 @@ PRODUCTS = [
         'id': uuid.uuid4().hex,
         'name' : 'Pacific Salmon',
         'user' : 'brandonidas',
+        'price' : 9,
         'quantity' : 10,
         'tags' : 'fish'
     },
@@ -30,6 +31,7 @@ PRODUCTS = [
         'id': uuid.uuid4().hex,
         'name' : 'Fish & Chips',
         'user' : 'brandonidas',
+        'price' : 132,
         'quantity' : 12,
         'tags' : 'fish,spuds'
     },
@@ -37,10 +39,13 @@ PRODUCTS = [
         'id': uuid.uuid4().hex,
         'name' : 'Poutine',
         'user' : 'brandonidas',
+        'price' : 14,
         'quantity' : 12,
         'tags' : 'spuds'
     }
 ]
+
+PRODUCTS += generateRandomEntries(20)
 
 # configuration
 DEBUG = True
@@ -129,6 +134,15 @@ def single_product(product_id):
         remove_product(product_id)
         response_object['message'] = 'Product removed!'
     return jsonify(response_object)
+
+def search_by_term(string):
+    # basic search by a single term representing name or user
+    pass
+
+# TODO this is where we can expirement with data structures
+def search_by_tag(tag):
+    pass
+
 
 def remove_product(product_id):
     for product in PRODUCTS:
