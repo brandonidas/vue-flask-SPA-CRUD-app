@@ -2,7 +2,7 @@ import uuid
 import sqlite3
 from flask import Flask, json, jsonify, request, send_from_directory, abort, g
 from flask_cors import CORS
-
+from rng import *
 
 # TODO replace with a real mySQL DB
 IMAGES = [
@@ -18,32 +18,34 @@ IMAGES = [
     }
 ]
 
-BOOKS = [
+PRODUCTS = [
     {
         'id': uuid.uuid4().hex,
-        'title': 'On the Road',
-        'author': 'Jack Kerouac',
-        'read': True
+        'name' : 'Pacific Salmon',
+        'user' : 'brandonidas',
+        'price' : 9,
+        'quantity' : 10,
+        'tags' : ['fish']
     },
     {
         'id': uuid.uuid4().hex,
-        'title': 'Harry Potter and the Philosopher\'s Stone',
-        'author': 'J. K. Rowling',
-        'read': False
+        'name' : 'Fish & Chips',
+        'user' : 'brandonidas',
+        'price' : 132,
+        'quantity' : 12,
+        'tags' : ['fish','spuds']
     },
     {
         'id': uuid.uuid4().hex,
-        'title': 'Green Eggs and Ham',
-        'author': 'Dr. Seuss',
-        'read': True
+        'name' : 'Poutine',
+        'user' : 'brandonidas',
+        'price' : 14,
+        'quantity' : 12,
+        'tags' : ['spuds']
     }
 ]
 
-'''
-curl -X POST http://127.0.0.1:5000/books -d \
-  '{"title": "1Q84", "author": "Haruki Murakami", "read": "true"}' \
-  -H 'Content-Type: application/json'
-'''
+PRODUCTS += generateRandomEntries(20)
 
 # configuration
 DEBUG = True
@@ -89,50 +91,63 @@ def upload_file():
                         'id': uuid.uuid4().hex,
                         'user' : 'brandonidas'
                     }
-                )
+                ) 
+                # TODO use system path
                 image.save('/Users/brandontong/Documents/github/vue-flask-SPA-CRUD-app/server/uploads/' + image.filename) # must enable permissions
 
     return jsonify(response_object)
 
 
-@app.route('/books', methods=['GET', 'POST'])
-def all_books():
+@app.route('/products', methods=['GET', 'POST'])
+def all_products():
     response_object = {'status': 'success'}
     if request.method == 'POST':
         post_data = request.get_json()
-        BOOKS.append({
+        PRODUCTS.append({
             'id': uuid.uuid4().hex,
-            'title': post_data.get('title'),
-            'author': post_data.get('author'),
-            'read': post_data.get('read')
+            'name': post_data.get('name'),
+            'user': post_data.get('user'),
+            'quantity': post_data.get('quantity'),
+            'tags': post_data.get('tags'),
         })
-        response_object['message'] = 'Book added!'
+        response_object['message'] = 'Product added!'
     else:
-        response_object['books'] = BOOKS
+        response_object['products'] = PRODUCTS
     return jsonify(response_object)
 
-@app.route('/books/<book_id>', methods=['PUT', 'DELETE'])
-def single_book(book_id):
+@app.route('/products/<product_id>', methods=['PUT', 'DELETE'])
+def single_product(product_id):
     response_object = {'status': 'success'}
     if request.method == 'PUT':
         post_data = request.get_json()
-        remove_book(book_id)
-        BOOKS.append({
+        remove_product(product_id)
+        print(post_data)
+        PRODUCTS.append({
             'id': uuid.uuid4().hex,
-            'title': post_data.get('title'),
-            'author': post_data.get('author'),
-            'read': post_data.get('read')
+            'name': post_data.get('name'),
+            'user': post_data.get('user'),
+            'quantity': post_data.get('quantity'),
+            'tags': post_data.get('tags'),
         })
-        response_object['message'] = 'Book updated!'
+        response_object['message'] = 'Product updated!'
     if request.method == 'DELETE':
-        remove_book(book_id)
-        response_object['message'] = 'Book removed!'
+        remove_product(product_id)
+        response_object['message'] = 'Product removed!'
     return jsonify(response_object)
 
-def remove_book(book_id):
-    for book in BOOKS:
-        if book['id'] == book_id:
-            BOOKS.remove(book)
+def search_by_term(string):
+    # basic search by a single term representing name or user
+    pass
+
+# TODO this is where we can expirement with data structures
+def search_by_tag(tag):
+    pass
+
+
+def remove_product(product_id):
+    for product in PRODUCTS:
+        if product['id'] == product_id:
+            PRODUCTS.remove(product)
             return True
     return False
 
