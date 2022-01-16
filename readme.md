@@ -6,8 +6,22 @@ Dear Shopify Recruiters, given I have the sickness and an impending 3 interviews
 
 STEPS:
 1. DISABLE CORS : https://medium.com/swlh/avoiding-cors-errors-on-localhost-in-2020-5a656ed8cefa
-2. The backend runs on flask, so cd into the server directory and run "python app.py"
-3. The frontend runs on Vue, so cd into client and run "npm run server"
+2. The backend runs on flask:
+    ```sh
+    $ cd server
+    $ python3.9 -m venv env
+    $ source env/bin/activate
+    (env)$ pip install -r requirements.txt
+    (env)$ python app.py
+    ```
+3. The frontend runs on Vue:
+    ```sh
+    $ cd client
+    $ npm install
+    $ npm run serve
+    ```
+4. If you are a recruiting for data engineering, go to the index page, if you are recruiting of the backend team, go to directed port + "/products"
+
 CAVEAT: I have not yet tested this on a fresh install and thus there maybe needed packages or other set up. And as every developer knows, set up is the worst part.
 
 Citations
