@@ -25,7 +25,7 @@ PRODUCTS = [
         'user' : 'brandonidas',
         'price' : 9,
         'quantity' : 10,
-        'tags' : 'fish'
+        'tags' : ['fish']
     },
     {
         'id': uuid.uuid4().hex,
@@ -33,7 +33,7 @@ PRODUCTS = [
         'user' : 'brandonidas',
         'price' : 132,
         'quantity' : 12,
-        'tags' : 'fish,spuds'
+        'tags' : ['fish','spuds']
     },
     {
         'id': uuid.uuid4().hex,
@@ -41,7 +41,7 @@ PRODUCTS = [
         'user' : 'brandonidas',
         'price' : 14,
         'quantity' : 12,
-        'tags' : 'spuds'
+        'tags' : ['spuds']
     }
 ]
 
