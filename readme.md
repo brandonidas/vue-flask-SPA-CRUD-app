@@ -4,6 +4,8 @@ Dear Shopify Recruiters, given I have the sickness and an impending 3 interviews
 
 ![alt text](result_so_far.png "Current State")
 
+CONTENT WARNING: the data in the *products* portion of the application is randomly generated and sometimes returns unsavoury choices such as "new child".
+
 STEPS:
 1. DISABLE CORS : https://medium.com/swlh/avoiding-cors-errors-on-localhost-in-2020-5a656ed8cefa
 2. The backend runs on flask:
