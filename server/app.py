@@ -19,6 +19,7 @@ IMAGES = [
     }
 ]
 
+# acts as a cahce of sorts?
 PRODUCTS = [
     {
         'id': uuid.uuid4().hex,
@@ -108,7 +109,7 @@ def upload_file():
                     }
                 ) 
                 # TODO use system path
-                image.save('/Users/brandontong/Documents/github/vue-flask-SPA-CRUD-app/server/uploads/' + image.filename) # must enable permissions
+                image.save('./uploads/' + image.filename) # must enable permissions
 
     return jsonify(response_object)
 
