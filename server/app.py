@@ -56,7 +56,7 @@ DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 # TODO figure out relative paths, seems to work BUT MONITOR
-app.config["CLIENT_IMAGES"] = "./server/uploads"
+app.config["CLIENT_IMAGES"] = "./uploads"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///product.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
